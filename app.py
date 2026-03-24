@@ -284,8 +284,10 @@ if uploaded_file:
     generate_clicked = st.button("🪄 Generate Flashcards", use_container_width=True)
 
     if generate_clicked:
-        # Check API key
-        api_key = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY", "")
+        try:
+            api_key = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY", "")
+        except Exception:
+            api_key = os.getenv("GROQ_API_KEY", "")
         if not api_key:
             st.error(
                 "**GROQ_API_KEY not found.** "
